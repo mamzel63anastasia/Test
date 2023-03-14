@@ -1,2 +1,5 @@
 # Project exclude paths
 /target/
+/.idea/dataSources.xml
+/.idea/dataSources/
+/.idea/dataSources.local.xml

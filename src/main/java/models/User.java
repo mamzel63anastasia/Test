@@ -1,14 +1,13 @@
 package models;
 
-public class User {
 
+public class User {
+    private String login;
+    private String password;
     private String fio;
     private String mail;
     private String tabNumber;
     private String department;
-    private String login;
-    private String password;
-
 
     public User(String fio, String mail, String tabNumber, String department, String login, String password) {
         this.fio = fio;

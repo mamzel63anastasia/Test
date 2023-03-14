@@ -1,4 +1,15 @@
+<%@ page import="dao.Connector" %>
+<%@ page import="java.sql.SQLException" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%
+    try {
+        Connector connector = new Connector();
+    } catch (ClassNotFoundException e) {
+        throw new RuntimeException(e);
+    } catch (SQLException e) {
+        throw new RuntimeException(e);
+    }
+%>
 <html>
 <head>
     <title>Главная</title>

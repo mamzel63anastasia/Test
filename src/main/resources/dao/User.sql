@@ -5,7 +5,11 @@ CREATE TABLE IF NOT EXISTS public.users
     password character varying(50) NOT NULL,
     fio character varying(100) NOT NULL,
     mail character varying(100) NOT NULL,
-    "tab-number" character varying(10),
+    tab_number character varying(10),
     department character varying(20),
-    PRIMARY KEY (id)
+    id_role integer,
+    PRIMARY KEY (id),
+    FOREIGN KEY (id_role)
+     REFERENCES roles (id)
+
 );

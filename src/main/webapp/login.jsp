@@ -22,7 +22,7 @@
     }
 </style>
 <main class="form-signin w-100 m-auto">
-    <form method="post" action="/">
+    <form method="post" action="/login">
         <h1 class="h3 mb-3 fw-normal">Войти</h1>
 
         <div class="form-floating">

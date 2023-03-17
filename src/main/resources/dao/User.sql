@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS public.users
     mail character varying(100) NOT NULL,
     tab_number character varying(10),
     department character varying(20),
-    id_role integer,
+    id_role integer DEFAULT 1,
     PRIMARY KEY (id),
     FOREIGN KEY (id_role)
      REFERENCES roles (id)

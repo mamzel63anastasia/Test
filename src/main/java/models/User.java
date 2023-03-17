@@ -6,13 +6,14 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class User {
+    private int id_user;
     private String login;
     private String password;
     private String fio;
     private String mail;
     private String tabNumber;
     private String department;
-    private String role;
+    private int role;
 
     public User(String login, String password, String fio, String mail, String tabNumber, String department) {
         this.login = login;
@@ -22,6 +23,18 @@ public class User {
         this.tabNumber = tabNumber;
         this.department = department;
     }
+
+    public User(int id_user, String login, String password, String fio, String mail, String tabNumber, String department, int role) {
+        this.id_user = id_user;
+        this.login = login;
+        this.password = buildHash(password);
+        this.fio = fio;
+        this.mail = mail;
+        this.tabNumber = tabNumber;
+        this.department = department;
+        this.role = role;
+    }
+
 
     public String getFio() {
         return fio;
@@ -71,7 +84,7 @@ public class User {
         this.password = buildHash(password);
     }
 
-    private static String buildHash(String str) {
+    public static String buildHash(String str) {
         MessageDigest md = null;
         try {
             md = MessageDigest.getInstance("MD5");
@@ -84,11 +97,19 @@ public class User {
         return DatatypeConverter.printHexBinary(digest);
     }
 
-    public String getRole() {
+    public int getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(int role) {
         this.role = role;
+    }
+
+    public int getId_user() {
+        return id_user;
+    }
+
+    public void setId_user(int id_user) {
+        this.id_user = id_user;
     }
 }

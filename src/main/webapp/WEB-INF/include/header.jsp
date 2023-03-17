@@ -3,7 +3,7 @@
 <meta name="description" content="">
 
 <link href="css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="css/bootstrap-icons-1.10.3/bootstrap-icons.css">
+<%--<link rel="stylesheet" href="css/bootstrap-icons-1.10.3/bootstrap-icons.css">--%>
 <meta name="theme-color" content="#712cf9">
 
 

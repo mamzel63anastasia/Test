@@ -61,7 +61,7 @@ public class UserDao {
 
     public User fainedUserByLoginOrNull(String login) {
         try {
-            String sql = "SELECT login FROM users WHERE login = ?";
+            String sql = "SELECT * FROM users WHERE login = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, login);
 
@@ -75,7 +75,7 @@ public class UserDao {
 
     public User fainedUserByLoginAndPassOrNull(String login, String password) {
         try {
-            String sql = "SELECT login FROM users WHERE login = ? AND password = ?";
+            String sql = "SELECT * FROM users WHERE login = ? AND password = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, login);
             statement.setString(2, password);
@@ -89,7 +89,7 @@ public class UserDao {
     }
 
     public User fainedUserByIdOrNull(int id) {
-        String sql = "SELECT login FROM users WHERE id = ?";
+        String sql = "SELECT * FROM users WHERE id = ?";
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, id);
@@ -119,12 +119,16 @@ public class UserDao {
 
         if (resultSet.next()) {
             return new User(
+                    resultSet.getInt("id"),
                     resultSet.getString("login"),
                     resultSet.getString("password"),
                     resultSet.getString("fio"),
                     resultSet.getString("mail"),
                     resultSet.getString("tab_number"),
-                    resultSet.getString("department")
+                    resultSet.getString("department"),
+                    resultSet.getInt("id_role")
+
+
             );
         }
 

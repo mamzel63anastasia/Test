@@ -1,4 +1,5 @@
-<%--
+<%@ page import="dao.RoleDao" %>
+<%@ page import="models.Role" %><%--
   Created by IntelliJ IDEA.
   User: User
   Date: 14.03.2023
@@ -6,6 +7,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    RoleDao roleDao = new RoleDao();
+%>
 <html>
 <head>
     <title>Регистрация пользователя</title>
@@ -61,6 +65,16 @@
             <input type="password" class="form-control" id="floatingPass" placeholder="Пароль" name="password">
             <label for="floatingPass">Введите пароль</label>
         </div>
+
+        <div class="form-floating">
+            <select name="role" id="role" class="form-control">
+                <% for (Role role : roleDao.allRoles()) {%>
+                <option value="<%=role.getId()%>"><%=role.getNameRole()%></option>
+                <%}%>
+            </select>
+            <label for="role">Укажите роль</label>
+        </div>
+
         <button class="w-100 btn btn-lg btn-primary" type="submit">Регистрация</button>
     </form>
 </main>

@@ -1,0 +1,16 @@
+.container-fluid main {
+    margin-top: 10px;
+}
+main .row {
+    margin-bottom: 10px;
+}
+.card {
+    margin-bottom: 10px;
+}
+form.form .form-control {
+    margin-bottom: 10px;
+}
+.ck-content {
+    height: 400px;
+    margin-bottom: 10px;
+}

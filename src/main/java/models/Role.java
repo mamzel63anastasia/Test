@@ -1,9 +1,12 @@
 package models;
 
 public class Role {
+
+    private int id;
     private String nameRole;
 
-    public Role(String nameRole) {
+    public Role(int id, String nameRole) {
+        this.id = id;
         this.nameRole = nameRole;
     }
 
@@ -15,4 +18,11 @@ public class Role {
         this.nameRole = nameRole;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

@@ -1,12 +1,13 @@
 <%@ page import="utils.Utils" %>
+<%@ page import="dao.MaterialDao" %>
 <%@ page import="models.Material" %>
-<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
-    if (!Utils.checkAuthUser(request)) {
+    if (!Utils.checkAuthUser(session)) {
         response.sendRedirect("/login.jsp");
         return;
     }
+    MaterialDao materialDao = new MaterialDao(session);
 %>
 <html>
 <head>
@@ -31,23 +32,37 @@
     <div class="row">
         <%@include file="/WEB-INF/include/menuadmin.jsp" %>
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <form method="post" action="/">
-                <div class="accordion" id="accordionExample">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingOne">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            </button>
-                        </h2>
-                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                            </div>
+            <div class="row">
+                <a class="btn btn-primary" href="/admin/material.jsp?param=add">Добавить материал</a>
+            </div>
+            <% if (request.getParameter("param") != null) {%>
+            <div class="row">
+                <%@include file="/WEB-INF/forms/material.jsp"%>
+            </div>
+            <%}%>
+            <div class="row">
+                <% for (Material item : materialDao.all()) {%>
+                <div class="col-4">
+                    <div class="card">
+                        <h5 class="card-header"><%=item.getName()%></h5>
+                        <div class="card-body">
+                            <%
+                                String str = Utils.htmlToString(item.getText());
+                            %>
+                            <%=str.length() > 100 ? str.substring(0, 100) + "..." : str%>
+                        </div>
+                        <div class="card-footer">
+                            <a href="/admin/material.jsp?param=edit&id=<%=item.getId()%>" class="btn btn-link">Редактировать</a> |
+                            <a href="/admin/material?param=delete&id=<%=item.getId()%>" class="btn btn-link">Удалить</a>
                         </div>
                     </div>
-            </form>
+                </div>
+                <%}%>
+            </div>
         </main>
     </div>
 </div>
 <%@include file="/WEB-INF/include/footer.jsp" %>
+<%@include file="/WEB-INF/include/editor.jsp"%>
 </body>
 </html>

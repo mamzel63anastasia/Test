@@ -2,7 +2,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 
-<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+<link href="/css/style.css" rel="stylesheet">
 <%--<link rel="stylesheet" href="css/bootstrap-icons-1.10.3/bootstrap-icons.css">--%>
 <meta name="theme-color" content="#712cf9">
 

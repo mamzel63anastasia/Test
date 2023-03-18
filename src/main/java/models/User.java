@@ -1,12 +1,10 @@
 package models;
 
 
-import javax.xml.bind.DatatypeConverter;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import com.sun.istack.internal.NotNull;
 
-public class User {
-    private int id_user;
+public class User implements Model{
+    private int id;
     private String login;
     private String password;
     private String fio;
@@ -15,19 +13,20 @@ public class User {
     private String department;
     private int role;
 
-    public User(String login, String password, String fio, String mail, String tabNumber, String department) {
+    public User(@NotNull String login, @NotNull String password, String fio, String mail, String tabNumber, String department, int role) {
         this.login = login;
-        this.password = buildHash(password);
+        this.password = password;
         this.fio = fio;
         this.mail = mail;
         this.tabNumber = tabNumber;
         this.department = department;
+        this.role = role;
     }
 
-    public User(int id_user, String login, String password, String fio, String mail, String tabNumber, String department, int role) {
-        this.id_user = id_user;
+    public User(int id, @NotNull String login, @NotNull String password, String fio, String mail, String tabNumber, String department, @NotNull int role) {
+        this.id = id;
         this.login = login;
-        this.password = buildHash(password);
+        this.password = password;
         this.fio = fio;
         this.mail = mail;
         this.tabNumber = tabNumber;
@@ -81,20 +80,7 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = buildHash(password);
-    }
-
-    public static String buildHash(String str) {
-        MessageDigest md = null;
-        try {
-            md = MessageDigest.getInstance("MD5");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            return "";
-        }
-        md.update(str.getBytes());
-        byte[] digest = md.digest();
-        return DatatypeConverter.printHexBinary(digest);
+        this.password = password;
     }
 
     public int getRole() {
@@ -105,11 +91,11 @@ public class User {
         this.role = role;
     }
 
-    public int getId_user() {
-        return id_user;
+    public int getId() {
+        return id;
     }
 
-    public void setId_user(int id_user) {
-        this.id_user = id_user;
+    public void setId(int id) {
+        this.id = id;
     }
 }

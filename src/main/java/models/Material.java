@@ -1,30 +1,38 @@
 package models;
 
-public class Material {
-    private String nameMaterial;
-    private String textMaterial;
+public class Material implements Model{
+    private int id;
+    private String name;
+    private String text;
     private int id_user;
 
-    public Material(String nameMaterial, String textMaterial, int id_user) {
-        this.nameMaterial = nameMaterial;
-        this.textMaterial = textMaterial;
+    public Material(String name, String text, int id_user) {
+        this.name = name;
+        this.text = text;
         this.id_user = id_user;
     }
 
-    public String getNameMaterial() {
-        return nameMaterial;
+    public Material(int id, String name, String text, int id_user) {
+        this.id = id;
+        this.name = name;
+        this.text = text;
+        this.id_user = id_user;
     }
 
-    public void setNameMaterial(String nameMaterial) {
-        this.nameMaterial = nameMaterial;
+    public String getName() {
+        return name;
     }
 
-    public String getTextMaterial() {
-        return textMaterial;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setTextMaterial(String textMaterial) {
-        this.textMaterial = textMaterial;
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 
     public int getId_user() {
@@ -33,5 +41,13 @@ public class Material {
 
     public void setId_user(int id_user) {
         this.id_user = id_user;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

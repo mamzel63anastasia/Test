@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDao {
+public class UserDao implements Dao {
     private Connection connection;
 
     public UserDao() throws SQLException, IOException, ClassNotFoundException {
@@ -15,7 +15,7 @@ public class UserDao {
         this.connection = connector.getConnection();
     }
 
-    public List<User> getAllUsers() {
+    public List<User> all() {
         List<User> userList = new ArrayList<>();
 
         try {
@@ -26,12 +26,14 @@ public class UserDao {
 
             while (resultSet.next()) {
                 User user = new User(
+                        resultSet.getInt("id"),
                         resultSet.getString("login"),
                         resultSet.getString("password"),
                         resultSet.getString("fio"),
                         resultSet.getString("mail"),
                         resultSet.getString("tab_number"),
-                        resultSet.getString("department")
+                        resultSet.getString("department"),
+                        resultSet.getInt("id_role")
                 );
                 userList.add(user);
             }
@@ -41,9 +43,9 @@ public class UserDao {
         return userList;
     }
 
-    public boolean addUser(User user) {
+    public boolean add(User user) {
 
-        String sql = "INSERT INTO users (login, password, fio, mail, tab_number, department) values (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO users (login, password, fio, mail, tab_number, department, id_role) values (?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, user.getLogin());
@@ -52,6 +54,7 @@ public class UserDao {
             statement.setString(4, user.getMail());
             statement.setString(5, user.getTabNumber());
             statement.setString(6, user.getDepartment());
+            statement.setInt(7, user.getRole());
             return statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -59,7 +62,7 @@ public class UserDao {
         }
     }
 
-    public User fainedUserByLoginOrNull(String login) {
+    public User item(String login) {
         try {
             String sql = "SELECT * FROM users WHERE login = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -73,7 +76,7 @@ public class UserDao {
         return null;
     }
 
-    public User fainedUserByLoginAndPassOrNull(String login, String password) {
+    public User item(String login, String password) {
         try {
             String sql = "SELECT * FROM users WHERE login = ? AND password = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -88,7 +91,7 @@ public class UserDao {
         return null;
     }
 
-    public User fainedUserByIdOrNull(int id) {
+    public User item(int id) {
         String sql = "SELECT * FROM users WHERE id = ?";
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -101,8 +104,8 @@ public class UserDao {
         return null;
     }
 
-    public boolean deleteUserById(int id) {
-        String sql = "DELETE users WHERE id = ?";
+    public boolean delete(int id) {
+        String sql = "DELETE FROM users WHERE id = ?";
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, id);
@@ -133,5 +136,14 @@ public class UserDao {
         }
 
         return null;
+    }
+
+    @Override
+    public void close() {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            connection = null;
+        }
     }
 }

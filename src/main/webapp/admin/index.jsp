@@ -1,7 +1,7 @@
 <%@ page import="utils.Utils" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
-    if (!Utils.checkAuthUser(request)) {
+    if (!Utils.checkAuthUser(session)) {
         response.sendRedirect("/login.jsp");
         return;
     }

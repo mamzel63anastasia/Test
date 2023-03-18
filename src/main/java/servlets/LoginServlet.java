@@ -2,6 +2,7 @@ package servlets;
 
 import dao.UserDao;
 import models.User;
+import utils.Utils;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,11 +24,11 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         String login = request.getParameter("login");
-        String password = User.buildHash(request.getParameter("password"));
+        String password = Utils.buildHash(request.getParameter("password"));
 
         try {
             UserDao userDao = new UserDao();
-            User user = userDao.fainedUserByLoginAndPassOrNull(login, password);
+            User user = userDao.item(login, password);
 
             if (user != null) {
                 session.setAttribute("auth", user);

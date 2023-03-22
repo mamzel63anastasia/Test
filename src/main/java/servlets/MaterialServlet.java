@@ -17,7 +17,7 @@ public class MaterialServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         if (request.getParameter("param") != null && request.getParameter("param").equals("delete")) {
-            if(StringUtil.isNumeric(request.getParameter("id"))) {
+            if (StringUtil.isNumeric(request.getParameter("id"))) {
                 int id = Integer.parseInt(request.getParameter("id"));
                 MaterialDao dao = new MaterialDao(request.getSession());
                 dao.delete(id);
@@ -39,20 +39,18 @@ public class MaterialServlet extends HttpServlet {
 
         MaterialDao dao = new MaterialDao(session);
 
-        if(StringUtil.isNumeric(request.getParameter("id"))){
+        if (StringUtil.isNumeric(request.getParameter("id"))) {
             int id = Integer.parseInt(request.getParameter("id"));
-
             if (id > 0) {
                 Material material = dao.item(id);
                 material.setName(name);
                 material.setText(text);
                 dao.update(material);
-            } else {
-                Material material = new Material(name, text, user.getId());
-                dao.add(material);
             }
+        } else {
+            Material material = new Material(name, text, user.getId());
+            dao.add(material);
         }
-
 
         response.sendRedirect("/admin/material.jsp");
     }

@@ -1,3 +1,6 @@
+.right {
+    text-align: right;
+}
 .container-fluid main {
     margin-top: 10px;
 }
@@ -13,4 +16,22 @@ form.form .form-control {
 .ck-content {
     height: 400px;
     margin-bottom: 10px;
+}
+.test-builder div.test-settings .form-control {
+    margin-bottom: 10px;
+}
+.test-builder .question {
+    border: solid 1px #ccc;
+    border-radius: 17px;
+    padding: 10px;
+    background-color: #f8f9fa;
+}
+.test-builder .answers{
+    margin-top: 10px;
+}
+.test-builder .answers .answer{
+    margin-bottom: 10px;
+}
+.temp-question {
+    display: none;
 }

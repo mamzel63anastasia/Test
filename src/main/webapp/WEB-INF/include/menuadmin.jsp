@@ -13,8 +13,8 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="#">
-                    Тесты
+                <a class="nav-link" aria-current="page" href="/admin/test-builder.jsp">
+                    Создание тестов
                 </a>
             </li>
             <li class="nav-item">

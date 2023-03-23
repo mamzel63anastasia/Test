@@ -33,6 +33,7 @@
         <%@include file="/WEB-INF/include/menuadmin.jsp" %>
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div class="row test-builder">
+                <input type="hidden" value="" id="test_id">
                 <div class="test-settings">
                     <input type="text" id="name" class="form-control " placeholder="Название теста"
                            autocomplete="off">
@@ -59,16 +60,16 @@
     <div class="row question" question-id="0">
         <div class="row>">
             <div class="col-lg-12">
-                <textarea name="question" class="form-control" placeholder="Введите вопрос"></textarea>
+                <textarea class="form-control question_text" placeholder="Введите вопрос"></textarea>
             </div>
         </div>
         <div class="answers">
             <div class="answer">
                 <div class="input-group mb-3">
                     <div class="input-group-text">
-                        <input class="form-check-input mt-0" type="checkbox" title="Верный ответ">
+                        <input class="form-check-input mt-0 answer_check" type="checkbox" title="Верный ответ">
                     </div>
-                    <input type="text" class="form-control" aria-label="" placeholder="Вариант ответа">
+                    <input type="text" class="form-control answer_text" aria-label="" placeholder="Вариант ответа">
                     <input type="button" value="X" class="btn btn-danger delete_answer">
                 </div>
             </div>

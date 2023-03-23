@@ -1,0 +1,39 @@
+{
+  "id": 0,
+  "name": "Название теста",
+  "ball": 77,
+  "description": "Описание теста",
+  "questions": [
+    {
+      "id": 0,
+      "questionText": "Вопрос 1",
+      "answers": [
+        {
+          "answerText": "Ответ 1",
+          "answerCheck": true
+        },
+        {
+          "answerText": "Ответ 2",
+          "answerCheck": false
+        }
+      ]
+    },
+    {
+      "questionText": "Вопрос 2",
+      "answers": [
+        {
+          "answerText": "Ответ 1",
+          "answerCheck": false
+        },
+        {
+          "answerText": "Ответ 2",
+          "answerCheck": true
+        },
+        {
+          "answerText": "Ответ 3",
+          "answerCheck": true
+        }
+      ]
+    }
+  ]
+}

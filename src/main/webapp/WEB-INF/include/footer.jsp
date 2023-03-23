@@ -4,6 +4,7 @@
 %>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/jquery-3.6.3.min.js"></script>
+<script src="/js/jquery.serializeObject.js"></script>
 <script>
     function addMessage(message) {
         let block = '<div class="alert alert-danger alert-dismissible fade show" role="alert">' +

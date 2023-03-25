@@ -18,8 +18,8 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="#">
-                    группы
+                <a class="nav-link" aria-current="page" href="/admin/gettest.jsp">
+                    Назначения для тестируемого
                 </a>
             </li>
         </ul>

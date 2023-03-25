@@ -53,7 +53,7 @@ public class QuestionData {
         this.id = id;
     }
 
-    class Question {
+    public class Question {
         private int id;
         private String questionText;
         private List<Answer> answers;
@@ -83,7 +83,7 @@ public class QuestionData {
         }
     }
 
-    class Answer {
+    public class Answer {
         private String answerText;
         private boolean answerCheck;
 

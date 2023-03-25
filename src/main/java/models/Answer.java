@@ -1,27 +1,54 @@
 package models;
 
 public class Answer {
-    private String textAnswer;
-    private boolean correctAnswer;
+    private int id;
+    private String txt;
+    private int correct;
+    private int id_question;
 
-    public Answer(String textAnswer, boolean correctAnswer) {
-        this.textAnswer = textAnswer;
-        this.correctAnswer = correctAnswer;
+    public Answer(String txt, int correct, int id_question) {
+        this.txt = txt;
+        this.correct = correct;
+        this.id_question = id_question;
     }
 
-    public String getTextAnswer() {
-        return textAnswer;
+    public Answer(int id, String txt, int correct, int id_question) {
+        this.id = id;
+        this.txt = txt;
+        this.correct = correct;
+        this.id_question = id_question;
     }
 
-    public void setTextAnswer(String textAnswer) {
-        this.textAnswer = textAnswer;
+
+    public int getId() {
+        return id;
     }
 
-    public boolean isCorrectAnswer() {
-        return correctAnswer;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setCorrectAnswer(boolean correctAnswer) {
-        this.correctAnswer = correctAnswer;
+    public String getTxt() {
+        return txt;
+    }
+
+    public void setTxt(String txt) {
+        this.txt = txt;
+    }
+
+    public int getId_question() {
+        return id_question;
+    }
+
+    public void setId_question(int id_question) {
+        this.id_question = id_question;
+    }
+
+    public int getCorrect() {
+        return correct;
+    }
+
+    public void setCorrect(int correct) {
+        this.correct = correct;
     }
 }

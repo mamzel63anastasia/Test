@@ -1,12 +1,15 @@
 <%@ page import="utils.Utils" %>
 <%@ page import="dao.MaterialDao" %>
 <%@ page import="models.Material" %>
+<%@ page import="models.Test" %>
+<%@ page import="dao.TestDao" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
     if (!Utils.checkAuthUser(session)) {
         response.sendRedirect("/login.jsp");
         return;
     }
+    TestDao testDao = new TestDao(session);
 
 %>
 <html>
@@ -50,6 +53,17 @@
                     <div class="col-lg-6 right">
                         <input type="button" class="btn btn-link add_question" value="Добавить Вопрос">
                     </div>
+                    <% for (Test item : testDao.all()) {%>
+                    <div class="col-4">
+                        <div class="card">
+                            <h5 class="card-header"><%=item.getName()%></h5>
+                            <div class="card-footer">
+                                <a href="/admin/test-builder.jsp?param=edit&id=<%=item.getId()%>" class="btn btn-link">Редактировать</a> |
+                                <a href="/admin/test-builder?param=delete&id=<%=item.getId()%>" class="btn btn-link">Удалить</a>
+                            </div>
+                        </div>
+                    </div>
+                    <%}%>
                 </div>
             </div>
         </main>

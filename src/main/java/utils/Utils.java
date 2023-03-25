@@ -2,6 +2,7 @@ package utils;
 
 import models.User;
 import org.jsoup.Jsoup;
+import org.jsoup.internal.StringUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -34,5 +35,13 @@ public class Utils {
 
     public static String htmlToString(String html) {
         return Jsoup.parse(html).text();
+    }
+
+    public static int checkId(String str){
+        try {
+            return Integer.parseInt(str);
+        }catch (Exception ex) {
+            return 0;
+        }
     }
 }

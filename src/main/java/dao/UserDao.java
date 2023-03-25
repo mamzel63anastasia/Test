@@ -43,6 +43,36 @@ public class UserDao implements Dao {
         return userList;
     }
 
+    public List<User> all(int role) {
+        List<User> userList = new ArrayList<>();
+
+        try {
+            String sql = "SELECT * FROM users WHERE id_role = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, role);
+            ResultSet resultSet = statement.executeQuery();
+
+
+            while (resultSet.next()) {
+                User user = new User(
+                        resultSet.getInt("id"),
+                        resultSet.getString("login"),
+                        resultSet.getString("password"),
+                        resultSet.getString("fio"),
+                        resultSet.getString("mail"),
+                        resultSet.getString("tab_number"),
+                        resultSet.getString("department"),
+                        resultSet.getInt("id_role")
+                );
+                userList.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userList;
+    }
+
+
     public boolean add(User user) {
 
         String sql = "INSERT INTO users (login, password, fio, mail, tab_number, department, id_role) values (?, ?, ?, ?, ?, ?, ?)";

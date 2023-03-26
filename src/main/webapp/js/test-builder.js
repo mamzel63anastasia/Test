@@ -26,22 +26,22 @@ $(document).ready(function () {
     $(document).on("click", ".save_test", function () {
         let test = {
             id: $(".test-builder input#test_id").val() * 1,
-            name: $(".test-builder input#name").val(),
+            name: $(".test-builder input#name").val().trim(),
             ball: $(".test-builder input#ball").val() * 1,
-            description: $(".test-builder textarea#description").val(),
+            description: $(".test-builder textarea#description").val().trim(),
             questions: Array()
         }
 
         $(".questions .question").each(function () {
             let questionItem = {
                 id: $(this).attr("question-id") * 1,
-                questionText: $(this).find("textarea.question_text").val(),
+                questionText: $(this).find("textarea.question_text").val().trim(),
                 answers: Array()
             }
 
             $(this).find("div.answers div.answer").each(function () {
                 let answer = {
-                    answerText: $(this).find("input.answer_text").val(),
+                    answerText: $(this).find("input.answer_text").val().trim(),
                     answerCheck: $(this).find("input.answer_check").prop("checked")
                 }
                 questionItem.answers.push(answer)

@@ -3,6 +3,8 @@
 <%@ page import="utils.Utils" %>
 <%@ page import="dao.QuestionDao" %>
 <%@ page import="dao.AnswerDao" %>
+<%@ page import="models.Question" %>
+<%@ page import="models.Answer" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
     if (!Utils.checkAuthUser(session)) {
@@ -58,9 +60,38 @@
                 <hr>
                 <div class="questions">
                     <% if (test != null) {
+                        for (Question itemQuestion : questionDao.all(test.getId())) {
                     %>
+                    <div class="row question" question-id="<%=itemQuestion.getId()%>">
+                        <div class="row>">
+                            <div class="col-lg-12">
+                                <textarea class="form-control question_text" placeholder="Введите вопрос"><%=itemQuestion.getTxt()%></textarea>
+                            </div>
+                        </div>
+                        <div class="answers">
+                            <%
+                                for (Answer itemAnswer : answerDao.all(itemQuestion.getId())) {
+                            %>
+                            <div class="answer">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-text">
+                                        <input class="form-check-input mt-0 answer_check" type="checkbox"
+                                               title="Верный ответ" <%=itemAnswer.getCorrect() == 1 ? "checked" : ""%>>
+                                    </div>
+                                    <input type="text" class="form-control answer_text" aria-label=""
+                                           placeholder="Вариант ответа" value="<%=itemAnswer.getTxt()%>">
+                                    <input type="button" value="X" class="btn btn-danger delete_answer">
+                                </div>
+                            </div>
+                            <%}%>
+                        </div>
+                        <div class="right">
+                            <input type="button" class="btn btn-link add_answer" value="Добавить ответ"> |
+                            <input type="button" class="btn btn-link delete_question" value="Удалить вопрос">
+                        </div>
+                    </div>
 
-
+                    <%}%>
                     <%}%>
                 </div>
                 <div class="row">
@@ -70,23 +101,6 @@
                     <div class="col-lg-6 right">
                         <input type="button" class="btn btn-link add_question" value="Добавить Вопрос">
                     </div>
-
-
-                    <% for (Test item : testDao.all()) {%>
-                    <div class="col-4">
-                        <div class="card">
-                            <h5 class="card-header"><%=item.getName()%>
-                            </h5>
-                            <div class="card-footer">
-                                <a href="/admin/test-builder.jsp?param=edit&id=<%=item.getId()%>" class="btn btn-link">Редактировать</a>
-                                |
-                                <a href="/admin/test-builder?param=delete&id=<%=item.getId()%>" class="btn btn-link">Удалить</a>
-                            </div>
-                        </div>
-                    </div>
-                    <%}%>
-
-
                 </div>
             </div>
         </main>

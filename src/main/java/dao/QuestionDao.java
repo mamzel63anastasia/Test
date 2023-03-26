@@ -40,6 +40,35 @@ public class QuestionDao implements Dao {
         return Collections.emptyList();
     }
 
+    public List<Question> all(int idTest) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM question WHERE id_test = ?");
+            statement.setInt(1, idTest);
+            return buildStatement(statement);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Collections.emptyList();
+    }
+
+    public Question item(int id) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM question WHERE id = ?");
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return new Question(
+                        resultSet.getInt("id"),
+                        resultSet.getString("txt"),
+                        resultSet.getInt("id_test")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public int add(Question question) {
         try {
             String sql = "INSERT INTO question (txt, id_test) VALUES (?, ?) RETURNING id";
@@ -57,7 +86,6 @@ public class QuestionDao implements Dao {
         }
         return 0;
     }
-
 
     public boolean update(Question question) {
         try {
@@ -86,7 +114,6 @@ public class QuestionDao implements Dao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return false;
     }
 

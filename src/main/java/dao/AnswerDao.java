@@ -40,6 +40,17 @@ public class AnswerDao implements Dao {
         return Collections.emptyList();
     }
 
+    public List<Answer> all(int questionId) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM answer WHERE id_question = ?");
+            statement.setInt(1, questionId);
+            return buildStatement(statement);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Collections.emptyList();
+    }
+
     public boolean add(Answer answer) {
         try {
             String sql = "INSERT INTO answer (txt, correct, id_question) VALUES (?, ?, ?)";
@@ -88,6 +99,19 @@ public class AnswerDao implements Dao {
         return false;
     }
 
+    public boolean deleteByQuestion(int idQuestion) {
+        try {
+            String sql = "DELETE FROM answer WHERE id_question = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            statement.setInt(1, idQuestion);
+
+            return statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
     private List<Answer> buildStatement(PreparedStatement statement) {
         List<Answer> list = new ArrayList<>();

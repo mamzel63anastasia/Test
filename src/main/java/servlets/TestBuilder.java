@@ -40,46 +40,78 @@ public class TestBuilder extends HttpServlet {
         User user = (User) session.getAttribute("auth");
 
         TestDao testDao = new TestDao(session);
-        int idTest = testDao.add(new Test(
-                data.getName(),
-                data.getDescription(),
-                data.getBall(),
-                user.getId()
-        ));
+        QuestionDao questionDao = new QuestionDao(session);
+        AnswerDao answerDao = new AnswerDao(session);
 
-        if (idTest > 0) {
-            QuestionDao questionDao = new QuestionDao(session);
-            AnswerDao answerDao = new AnswerDao(session);
-            if (data.getQuestions().size() == 0) {
-                testDao.delete(idTest);
-            } else {
-                for (QuestionData.Question question : data.getQuestions()) {
-                    int idQuestion = questionDao.add(new Question(
-                            question.getQuestionText(),
-                            idTest
+        if (data.getId() > 0) {//редактированние теста
+            Test itemTest = testDao.item(data.getId());
+            itemTest.setName(data.getName());
+            itemTest.setBall(data.getBall());
+            itemTest.setDescription(data.getDescription());
+            testDao.update(itemTest);
+
+            for (QuestionData.Question questionData : data.getQuestions()) {
+                int idQuestion = 0;
+
+                if (questionData.getId() > 0){
+                    Question item = questionDao.item(questionData.getId());
+                    item.setTxt(questionData.getQuestionText());
+                    idQuestion = item.getId();
+
+                    questionDao.update(item);
+                } else {
+                    Question item = new Question(questionData.getQuestionText(), data.getId());
+                    idQuestion = questionDao.add(item);
+                }
+
+                answerDao.deleteByQuestion(idQuestion);
+
+                for (QuestionData.Answer answerData : questionData.getAnswers()) {
+                    answerDao.add(new Answer(
+                            answerData.getAnswerText(),
+                            answerData.isAnswerCheck() ? 1 : 0,
+                            idQuestion
                     ));
+                }
+            }
 
-                    if (idQuestion > 0 &&  question.getAnswers().size() > 0) {
-                        for (QuestionData.Answer answer : question.getAnswers()) {
-                            answerDao.add(new Answer(
-                                    answer.getAnswerText(),
-                                    answer.isAnswerCheck() ? 1 : 0,
-                                    idQuestion
-                            ));
+        } else { // Добавление теста
+            int idTest = testDao.add(new Test(
+                    data.getName(),
+                    data.getDescription(),
+                    data.getBall(),
+                    user.getId()
+            ));
 
+            if (idTest > 0) {
+                if (data.getQuestions().size() == 0) {
+                    testDao.delete(idTest);
+                } else {
+                    for (QuestionData.Question question : data.getQuestions()) {
+                        int idQuestion = questionDao.add(new Question(
+                                question.getQuestionText(),
+                                idTest
+                        ));
+
+                        if (idQuestion > 0 &&  question.getAnswers().size() > 0) {
+                            for (QuestionData.Answer answer : question.getAnswers()) {
+                                answerDao.add(new Answer(
+                                        answer.getAnswerText(),
+                                        answer.isAnswerCheck() ? 1 : 0,
+                                        idQuestion
+                                ));
+                            }
+                        } else {
+                            questionDao.delete(idQuestion);
+                            testDao.delete(idTest);
+                            break;
                         }
-
-                    } else {
-                        questionDao.delete(idQuestion);
-                        testDao.delete(idTest);
-                        break;
                     }
                 }
             }
         }
 
-//        responseData.setMessage("Сообщение с ошибкой"); какое сообщение показать если все плохо. Тогда редиректа не будет
-        responseData.setLocation("/admin/test-builder.jsp"); //куда редиректить если все ок
+        responseData.setLocation("/admin/tests-view.jsp"); //куда редиректить если все ок
 
         resp.getWriter().print(responseData);
     }

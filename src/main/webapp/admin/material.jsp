@@ -8,6 +8,8 @@
         return;
     }
     MaterialDao materialDao = new MaterialDao(session);
+
+    String param = request.getParameter("param");
 %>
 <html>
 <head>
@@ -35,11 +37,29 @@
             <div class="row">
                 <a class="btn btn-primary" href="/admin/material.jsp?param=add">Добавить материал</a>
             </div>
-            <% if (request.getParameter("param") != null) {%>
+            <% if (param != null && (param.equals("edit") || param.equals("add"))) {%>
             <div class="row">
                 <%@include file="/WEB-INF/forms/material.jsp"%>
             </div>
             <%}%>
+
+            <%
+                if (param != null && param.equals("view")) {
+                int materialId = Utils.checkId(request.getParameter("id"));
+                if (materialId > 0) {
+                    Material materialView = materialDao.item(materialId);
+            %>
+                <div class="row">
+                    <div class="col-12">
+                        <h1><%=materialView.getName()%></h1>
+                        <%=materialView.getText()%>
+                    </div>
+                </div>
+                <%}%>
+            <%}%>
+            <%
+                if (param == null) {
+            %>
             <div class="row">
                 <% for (Material item : materialDao.all()) {%>
                 <div class="col-4">
@@ -52,6 +72,7 @@
                             <%=str.length() > 100 ? str.substring(0, 100) + "..." : str%>
                         </div>
                         <div class="card-footer">
+                            <a href="/admin/material.jsp?param=view&id=<%=item.getId()%>" class="btn btn-link">Открыть</a> |
                             <a href="/admin/material.jsp?param=edit&id=<%=item.getId()%>" class="btn btn-link">Редактировать</a> |
                             <a href="/admin/material?param=delete&id=<%=item.getId()%>" class="btn btn-link">Удалить</a>
                         </div>
@@ -59,6 +80,7 @@
                 </div>
                 <%}%>
             </div>
+            <%}%>
         </main>
     </div>
 </div>

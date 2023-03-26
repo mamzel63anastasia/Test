@@ -8,7 +8,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" aria-current="page" href="/user.jsp">
-                    Личный кабинет тестируемого подумать над меню
+                    Личный кабинет тестируемого
                 </a>
             </li>
         </ul>

@@ -1,8 +1,8 @@
-<%@ page import="utils.Utils" %>
-<%@ page import="dao.MaterialDao" %>
-<%@ page import="models.Material" %>
-<%@ page import="models.Test" %>
 <%@ page import="dao.TestDao" %>
+<%@ page import="models.Test" %>
+<%@ page import="utils.Utils" %>
+<%@ page import="dao.QuestionDao" %>
+<%@ page import="dao.AnswerDao" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
     if (!Utils.checkAuthUser(session)) {
@@ -10,6 +10,15 @@
         return;
     }
     TestDao testDao = new TestDao(session);
+    QuestionDao questionDao = new QuestionDao(session);
+    AnswerDao answerDao = new AnswerDao(session);
+
+    String param = request.getParameter("param");
+    Test test = null;
+    if (param != null && param.equals("edit")) {
+        int idTest = Utils.checkId(request.getParameter("id"));
+        if (idTest > 0) test = testDao.item(idTest);
+    }
 
 %>
 <html>
@@ -36,16 +45,24 @@
         <%@include file="/WEB-INF/include/menuadmin.jsp" %>
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div class="row test-builder">
-                <input type="hidden" value="" id="test_id">
+                <input type="hidden" value="<%=test != null ? test.getId() : 0%>" id="test_id">
                 <div class="test-settings">
                     <input type="text" id="name" class="form-control " placeholder="Название теста"
-                           autocomplete="off">
+                           autocomplete="off" value="<%=test != null ? test.getName() : ""%>">
                     <input type="number" min="1" max="100" step="1" maxlength="3" id="ball" class="form-control"
-                           placeholder="Проходной бал" autocomplete="off">
-                    <textarea id="description" class="form-control" placeholder="Описание теста"></textarea>
+                           placeholder="Проходной бал" autocomplete="off"
+                           value="<%=test != null ? test.getBall() : ""%>">
+                    <textarea id="description" class="form-control"
+                              placeholder="Описание теста"><%=test != null ? test.getDescription() : ""%></textarea>
                 </div>
                 <hr>
-                <div class="questions"></div>
+                <div class="questions">
+                    <% if (test != null) {
+                    %>
+
+
+                    <%}%>
+                </div>
                 <div class="row">
                     <div class="col-lg-6">
                         <input type="button" class="btn btn-success save_test" value="Сохранить тест">
@@ -53,17 +70,23 @@
                     <div class="col-lg-6 right">
                         <input type="button" class="btn btn-link add_question" value="Добавить Вопрос">
                     </div>
+
+
                     <% for (Test item : testDao.all()) {%>
                     <div class="col-4">
                         <div class="card">
-                            <h5 class="card-header"><%=item.getName()%></h5>
+                            <h5 class="card-header"><%=item.getName()%>
+                            </h5>
                             <div class="card-footer">
-                                <a href="/admin/test-builder.jsp?param=edit&id=<%=item.getId()%>" class="btn btn-link">Редактировать</a> |
+                                <a href="/admin/test-builder.jsp?param=edit&id=<%=item.getId()%>" class="btn btn-link">Редактировать</a>
+                                |
                                 <a href="/admin/test-builder?param=delete&id=<%=item.getId()%>" class="btn btn-link">Удалить</a>
                             </div>
                         </div>
                     </div>
                     <%}%>
+
+
                 </div>
             </div>
         </main>

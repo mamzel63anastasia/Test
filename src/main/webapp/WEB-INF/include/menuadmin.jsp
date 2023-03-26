@@ -9,7 +9,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" aria-current="page" href="/admin/material.jsp">
-                    Учебный материал
+                   Создание  учебного материала
                 </a>
             </li>
             <li class="nav-item">
@@ -20,6 +20,11 @@
             <li class="nav-item">
                 <a class="nav-link" aria-current="page" href="/admin/gettest.jsp">
                     Назначения для тестируемого
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/*">
+                    Статистика
                 </a>
             </li>
         </ul>

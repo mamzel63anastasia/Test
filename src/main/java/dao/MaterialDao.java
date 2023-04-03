@@ -53,6 +53,20 @@ public class MaterialDao implements Dao{
         return null;
     }
 
+    public Material itemByUser(int id) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM material WHERE id = ?");
+            statement.setInt(1, id);
+            List<Material> list = buildStatement(statement);
+            if (!list.isEmpty()) {
+                return list.get(0);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public boolean add(Material material) {
         try {
             String sql = "INSERT INTO material (name, txt, id_user) VALUES (?, ?, ?)";

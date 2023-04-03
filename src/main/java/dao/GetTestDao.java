@@ -40,6 +40,17 @@ public class GetTestDao implements Dao {
         return Collections.emptyList();
     }
 
+    public List<GetTest> allByUser() {
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM get_test WHERE id_users = ?");
+            statement.setInt(1, user.getId());
+            return buildStatement(statement);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Collections.emptyList();
+    }
+
     public GetTest item(int id) {
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM get_test WHERE id = ? AND id_admin = ?");

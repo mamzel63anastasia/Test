@@ -7,8 +7,18 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="/user.jsp">
-                    Личный кабинет тестируемого
+                <a class="nav-link" aria-current="page" href="/umaterial.jsp">
+                    Назначенные учебные материалы
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/test.jsp">
+                    Назначенные тесты
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/">
+                    Статистика
                 </a>
             </li>
         </ul>

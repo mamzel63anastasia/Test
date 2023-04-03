@@ -27,7 +27,7 @@
 </head>
 <body>
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="/">ИС Тестирования</a>
+    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="/">АИС Тестирования</a>
     <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
             data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
             aria-label="Toggle navigation">
@@ -63,7 +63,7 @@
                     <%}%>
                 </select>
                 <div class="row">
-                    <button class="w-100 btn btn-lg btn-primary" type="submit">Войти</button>
+                    <button class="w-100 btn btn-lg btn-primary" type="submit">Назначить</button>
                 </div>
             </form>
             <table class="table table-striped">
@@ -74,15 +74,20 @@
                 </tr>
                 <%for (GetTest items : getTestDao.all()) {%>
                 <tr>
-                    <td><%=userDao.item(items.getId_user()).getFio()%>, <%=userDao.item(items.getId_user()).getLogin()%>
+                    <%
+                        User userView = userDao.item(items.getId_user());
+                    %>
+                    <td><%=userView.getFio()%>, <%=userView.getLogin()%>
                     </td>
-                    <td><%=testDao.item(items.getId()).getName()%>
+                    <td><%=testDao.item(items.getId_test()).getName()%>
                     </td>
-                    <td><%=testDao.item(items.getId_material()).getName()%></td>
+                    <td><%=materialDao.item(items.getId_material()).getName()%>
+                    </td>
                 </tr>
                 <%}%>
             </table>
-
         </main>
+    </div>
+</div>
 </body>
 </html>

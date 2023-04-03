@@ -6,6 +6,9 @@ import dao.AnswerDao;
 import dao.QuestionDao;
 import dao.TestDao;
 import models.*;
+import models.data.AnswerData;
+import models.data.QuestionData;
+import models.data.TestData;
 import utils.ResponseData;
 
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 @WebServlet(urlPatterns = {"/admin/testBuilder"})
 public class TestBuilder extends HttpServlet {
@@ -34,7 +36,7 @@ public class TestBuilder extends HttpServlet {
 
         JsonReader jsonReader = new JsonReader(req.getReader());
 
-        QuestionData data = gson.fromJson(jsonReader, QuestionData.class);
+        TestData data = gson.fromJson(jsonReader, TestData.class);
 
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("auth");
@@ -50,7 +52,7 @@ public class TestBuilder extends HttpServlet {
             itemTest.setDescription(data.getDescription());
             testDao.update(itemTest);
 
-            for (QuestionData.Question questionData : data.getQuestions()) {
+            for (QuestionData questionData : data.getQuestionData()) {
                 int idQuestion = 0;
 
                 if (questionData.getId() > 0){
@@ -66,7 +68,7 @@ public class TestBuilder extends HttpServlet {
 
                 answerDao.deleteByQuestion(idQuestion);
 
-                for (QuestionData.Answer answerData : questionData.getAnswers()) {
+                for (AnswerData answerData : questionData.getAnswerData()) {
                     answerDao.add(new Answer(
                             answerData.getAnswerText(),
                             answerData.isAnswerCheck() ? 1 : 0,
@@ -84,20 +86,20 @@ public class TestBuilder extends HttpServlet {
             ));
 
             if (idTest > 0) {
-                if (data.getQuestions().size() == 0) {
+                if (data.getQuestionData().size() == 0) {
                     testDao.delete(idTest);
                 } else {
-                    for (QuestionData.Question question : data.getQuestions()) {
+                    for (QuestionData questionData : data.getQuestionData()) {
                         int idQuestion = questionDao.add(new Question(
-                                question.getQuestionText(),
+                                questionData.getQuestionText(),
                                 idTest
                         ));
 
-                        if (idQuestion > 0 &&  question.getAnswers().size() > 0) {
-                            for (QuestionData.Answer answer : question.getAnswers()) {
+                        if (idQuestion > 0 &&  questionData.getAnswerData().size() > 0) {
+                            for (AnswerData answerData : questionData.getAnswerData()) {
                                 answerDao.add(new Answer(
-                                        answer.getAnswerText(),
-                                        answer.isAnswerCheck() ? 1 : 0,
+                                        answerData.getAnswerText(),
+                                        answerData.isAnswerCheck() ? 1 : 0,
                                         idQuestion
                                 ));
                             }

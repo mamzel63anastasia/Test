@@ -1,5 +1,6 @@
 <%@ page import="models.Question" %>
 <%@ page import="models.Test" %>
+
 <%
     Test test = null;
     if (request.getParameter("param").equals("edit")) {
@@ -12,11 +13,11 @@
     }
 %>
 <%
-    Question question = null;
+    Question questionData = null;
     if (request.getParameter("param").equals("edit")) {
         try {
             int id = Integer.parseInt(request.getParameter("id"));
-            question = questionDao.item(id);
+            questionData = questionDao.item(id);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

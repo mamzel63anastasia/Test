@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS public.test
 ALTER TABLE IF EXISTS public.test
     OWNER to postgres;
 
-CREATE TABLE IF NOT EXISTS public.question
+CREATE TABLE IF NOT EXISTS public.questionData
 (
     id serial NOT NULL,
     txt text COLLATE pg_catalog."default" NOT NULL ,
@@ -90,11 +90,11 @@ CREATE TABLE IF NOT EXISTS public.question
 
     TABLESPACE pg_default;
 
-ALTER TABLE IF EXISTS public.question
+ALTER TABLE IF EXISTS public.questionData
     OWNER to postgres;
 
 
-CREATE TABLE IF NOT EXISTS public.answer
+CREATE TABLE IF NOT EXISTS public.answerData
 (
     id serial NOT NULL,
     txt text COLLATE pg_catalog."default" NOT NULL,
@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS public.answer
     id_question integer NOT NULL,
     CONSTRAINT answer_pkey PRIMARY KEY (id),
     CONSTRAINT id_question FOREIGN KEY (id_question)
-        REFERENCES public.question (id) MATCH SIMPLE
+        REFERENCES public.questionData (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE CASCADE
 
@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS public.answer
 
     TABLESPACE pg_default;
 
-ALTER TABLE IF EXISTS public.answer
+ALTER TABLE IF EXISTS public.answerData
     OWNER to postgres;
 
 CREATE TABLE IF NOT EXISTS public.get_test
@@ -145,7 +145,7 @@ CREATE TABLE IF NOT EXISTS public.get_test
 
     TABLESPACE pg_default;
 
-ALTER TABLE IF EXISTS public.answer
+ALTER TABLE IF EXISTS public.answerData
     OWNER to postgres;
 
 

@@ -29,7 +29,7 @@
 </head>
 <body>
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="/">ИС Тестирования</a>
+    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="/">АИС Тестирования</a>
     <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
             data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
             aria-label="Toggle navigation">
@@ -54,19 +54,19 @@
                     <hr>
                     <table class="table table-striped">
                         <%
-                            for (Question question : questionDao.all(test.getId())) {
+                            for (Question questionData : questionDao.all(test.getId())) {
                         %>
                         <tr>
-                            <td colspan="2"><%=question.getTxt()%>
+                            <td colspan="2"><%=questionData.getTxt()%>
                             </td>
                         </tr>
                         <%
-                            for (Answer answer : answerDao.all(question.getId())) {
+                            for (Answer answerData : answerDao.all(questionData.getId())) {
                         %>
                         <tr>
-                            <td><%=answer.getTxt()%>
+                            <td><%=answerData.getTxt()%>
                             </td>
-                            <td><%=answer.getCorrect() == 1 ? "+" : "-"%>
+                            <td><%=answerData.getCorrect() == 1 ? "+" : "-"%>
                             </td>
                         </tr>
                         <%}%>

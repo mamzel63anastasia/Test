@@ -36,7 +36,6 @@ public class GetTestServlet extends HttpServlet {
         int id_material = Utils.checkId(req.getParameter("material"));
         if (id_user > 0 && id_test > 0 && id_material > 0) {
             GetTest getTest = new GetTest(id_user, id_test , id_material, user.getId());
-
             dao.add(getTest);
         } else {
             session.setAttribute("message", "Недостаточно параметров");

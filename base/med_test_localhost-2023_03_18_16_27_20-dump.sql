@@ -10,6 +10,9 @@ CREATE TABLE IF NOT EXISTS public.role
 ALTER TABLE IF EXISTS public.role
     OWNER to postgres;
 
+truncate role;
+INSERT INTO role (name) VALUES ('Ученик'), ('Администратор');
+
 CREATE TABLE IF NOT EXISTS public.users
 (
     id serial NOT NULL,
@@ -31,6 +34,13 @@ CREATE TABLE IF NOT EXISTS public.users
 
 ALTER TABLE IF EXISTS public.users
     OWNER to postgres;
+
+truncate users;
+
+INSERT INTO users (login, password, fio, mail, tab_number, department, id_role) VALUES
+('admin', '21232F297A57A5A743894A0E4A801FC3', 'Иванов Иван Иванович', 'vvv@mail.ru', '123', '321', 2),
+('user', '21232F297A57A5A743894A0E4A801FC3', 'Николаев Петр Сергеевич', 'vvv@mail.ru', '123', '321', 1);
+
 
 CREATE TABLE IF NOT EXISTS public.material
 (
@@ -75,7 +85,7 @@ CREATE TABLE IF NOT EXISTS public.test
 ALTER TABLE IF EXISTS public.test
     OWNER to postgres;
 
-CREATE TABLE IF NOT EXISTS public.questionData
+CREATE TABLE IF NOT EXISTS public.question
 (
     id serial NOT NULL,
     txt text COLLATE pg_catalog."default" NOT NULL ,
@@ -90,11 +100,11 @@ CREATE TABLE IF NOT EXISTS public.questionData
 
     TABLESPACE pg_default;
 
-ALTER TABLE IF EXISTS public.questionData
+ALTER TABLE IF EXISTS public.question
     OWNER to postgres;
 
 
-CREATE TABLE IF NOT EXISTS public.answerData
+CREATE TABLE IF NOT EXISTS public.answer
 (
     id serial NOT NULL,
     txt text COLLATE pg_catalog."default" NOT NULL,
@@ -102,7 +112,7 @@ CREATE TABLE IF NOT EXISTS public.answerData
     id_question integer NOT NULL,
     CONSTRAINT answer_pkey PRIMARY KEY (id),
     CONSTRAINT id_question FOREIGN KEY (id_question)
-        REFERENCES public.questionData (id) MATCH SIMPLE
+        REFERENCES public.question (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE CASCADE
 
@@ -110,7 +120,7 @@ CREATE TABLE IF NOT EXISTS public.answerData
 
     TABLESPACE pg_default;
 
-ALTER TABLE IF EXISTS public.answerData
+ALTER TABLE IF EXISTS public.answer
     OWNER to postgres;
 
 CREATE TABLE IF NOT EXISTS public.get_test
@@ -145,7 +155,7 @@ CREATE TABLE IF NOT EXISTS public.get_test
 
     TABLESPACE pg_default;
 
-ALTER TABLE IF EXISTS public.answerData
+ALTER TABLE IF EXISTS public.answer
     OWNER to postgres;
 
 

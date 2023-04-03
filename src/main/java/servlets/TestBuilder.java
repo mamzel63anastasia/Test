@@ -52,7 +52,7 @@ public class TestBuilder extends HttpServlet {
             itemTest.setDescription(data.getDescription());
             testDao.update(itemTest);
 
-            for (QuestionData questionData : data.getQuestionData()) {
+            for (QuestionData questionData : data.getQuestions()) {
                 int idQuestion = 0;
 
                 if (questionData.getId() > 0){
@@ -68,7 +68,7 @@ public class TestBuilder extends HttpServlet {
 
                 answerDao.deleteByQuestion(idQuestion);
 
-                for (AnswerData answerData : questionData.getAnswerData()) {
+                for (AnswerData answerData : questionData.getAnswers()) {
                     answerDao.add(new Answer(
                             answerData.getAnswerText(),
                             answerData.isAnswerCheck() ? 1 : 0,
@@ -86,17 +86,17 @@ public class TestBuilder extends HttpServlet {
             ));
 
             if (idTest > 0) {
-                if (data.getQuestionData().size() == 0) {
+                if (data.getQuestions().size() == 0) {
                     testDao.delete(idTest);
                 } else {
-                    for (QuestionData questionData : data.getQuestionData()) {
+                    for (QuestionData questionData : data.getQuestions()) {
                         int idQuestion = questionDao.add(new Question(
                                 questionData.getQuestionText(),
                                 idTest
                         ));
 
-                        if (idQuestion > 0 &&  questionData.getAnswerData().size() > 0) {
-                            for (AnswerData answerData : questionData.getAnswerData()) {
+                        if (idQuestion > 0 &&  questionData.getAnswers().size() > 0) {
+                            for (AnswerData answerData : questionData.getAnswers()) {
                                 answerDao.add(new Answer(
                                         answerData.getAnswerText(),
                                         answerData.isAnswerCheck() ? 1 : 0,

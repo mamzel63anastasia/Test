@@ -56,7 +56,7 @@
                 <hr>
                 <div class="questionData">
                     <% if (testData != null) {
-                        for (QuestionData itemQuestion : testData.getQuestionData()) {
+                        for (QuestionData itemQuestion : testData.getQuestions()) {
                     %>
                     <div class="row questionData" questionData-id="<%=itemQuestion.getId()%>">
                         <div class="row>">
@@ -68,7 +68,7 @@
                         </div>
                         <div class="answerData">
                             <%
-                                for (AnswerData itemAnswer : itemQuestion.getAnswerData()) {
+                                for (AnswerData itemAnswer : itemQuestion.getAnswers()) {
                             %>
                             <div class="answerData">
                                 <div class="input-group mb-3">

@@ -5,14 +5,14 @@ import java.util.List;
 public class QuestionData {
     private int id;
     private String questionText;
-    private List<AnswerData> answerData;
+    private List<AnswerData> answers;
 
-    public List<AnswerData> getAnswerData() {
-        return answerData;
+    public List<AnswerData> getAnswers() {
+        return answers;
     }
 
-    public void setAnswerData(List<AnswerData> answerData) {
-        this.answerData = answerData;
+    public void setAnswers(List<AnswerData> answers) {
+        this.answers = answers;
     }
 
     public String getQuestionText() {

@@ -58,21 +58,21 @@
                               placeholder="Описание теста"><%=test != null ? test.getDescription() : ""%></textarea>
                 </div>
                 <hr>
-                <div class="questionData">
+                <div class="questions">
                     <% if (test != null) {
                         for (Question itemQuestion : questionDao.all(test.getId())) {
                     %>
-                    <div class="row questionData" questionData-id="<%=itemQuestion.getId()%>">
+                    <div class="row question" question-id="<%=itemQuestion.getId()%>">
                         <div class="row>">
                             <div class="col-lg-12">
                                 <textarea class="form-control question_text" placeholder="Введите вопрос"><%=itemQuestion.getTxt()%></textarea>
                             </div>
                         </div>
-                        <div class="answerData">
+                        <div class="answers">
                             <%
                                 for (Answer itemAnswer : answerDao.all(itemQuestion.getId())) {
                             %>
-                            <div class="answerData">
+                            <div class="answer">
                                 <div class="input-group mb-3">
                                     <div class="input-group-text">
                                         <input class="form-check-input mt-0 answer_check" type="checkbox"
@@ -107,15 +107,15 @@
     </div>
 </div>
 <%@include file="/WEB-INF/include/footer.jsp" %>
-<div class="temp-questionData">
-    <div class="row questionData" questionData-id="0">
+<div class="temp-question">
+    <div class="row question" question-id="0">
         <div class="row>">
             <div class="col-lg-12">
                 <textarea class="form-control question_text" placeholder="Введите вопрос"></textarea>
             </div>
         </div>
-        <div class="answerData">
-            <div class="answerData">
+        <div class="answers">
+            <div class="answer">
                 <div class="input-group mb-3">
                     <div class="input-group-text">
                         <input class="form-check-input mt-0 answer_check" type="checkbox" title="Верный ответ">

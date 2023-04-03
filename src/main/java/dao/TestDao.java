@@ -160,12 +160,12 @@ public class TestDao implements Dao {
                         );
                         answerDataList.add(answerData);
                     }
-                    questionData.setAnswerData(answerDataList);
+                    questionData.setAnswers(answerDataList);
 
                     questionDataItems.add(questionData);
                 }
 
-                data.setQuestionData(questionDataItems);
+                data.setQuestions(questionDataItems);
 
                 return data;
             }

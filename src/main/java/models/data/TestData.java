@@ -11,14 +11,14 @@ public class TestData {
 
     private String description;
 
-    private List<QuestionData> questionData;
+    private List<QuestionData> questions;
 
-    public List<QuestionData> getQuestionData() {
-        return questionData;
+    public List<QuestionData> getQuestions() {
+        return questions;
     }
 
-    public void setQuestionData(List<QuestionData> questionData) {
-        this.questionData = questionData;
+    public void setQuestions(List<QuestionData> questions) {
+        this.questions = questions;
     }
 
     public String getDescription() {

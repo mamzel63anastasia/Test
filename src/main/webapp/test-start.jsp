@@ -54,11 +54,11 @@
                     <b>Описание теста:</b><%=testData.getDescription()%>
                 </div>
                 <hr>
-                <div class="questionData">
+                <div class="questions">
                     <% if (testData != null) {
                         for (QuestionData itemQuestion : testData.getQuestions()) {
                     %>
-                    <div class="row questionData" questionData-id="<%=itemQuestion.getId()%>">
+                    <div class="row question" question-id="<%=itemQuestion.getId()%>">
                         <div class="row>">
                             <div class="col-lg-12">
                                 <text class="form-control question_text"
@@ -66,11 +66,11 @@
                                 </text>
                             </div>
                         </div>
-                        <div class="answerData">
+                        <div class="answers">
                             <%
                                 for (AnswerData itemAnswer : itemQuestion.getAnswers()) {
                             %>
-                            <div class="answerData">
+                            <div class="answer">
                                 <div class="input-group mb-3">
                                     <div class="input-group-text">
                                         <input class="form-check-input mt-0 answer_check" type="checkbox"
@@ -89,12 +89,13 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <a class="btn btn-link">Закончить тестирование</a>
+                    <button class="btn btn-link save-result-test">Закончить тестирование</button>
                 </div>
             </div>
         </main>
     </div>
 </div>
 <%@include file="WEB-INF/include/footer.jsp" %>
+<script src="/js/test-start.js"></script>
 </body>
 </html>

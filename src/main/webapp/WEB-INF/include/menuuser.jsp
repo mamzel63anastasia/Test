@@ -17,7 +17,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="/">
+                <a class="nav-link" aria-current="page" href="/statistic.jsp">
                     Статистика
                 </a>
             </li>

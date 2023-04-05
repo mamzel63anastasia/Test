@@ -2,7 +2,15 @@ package servlets;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
+import dao.AnswerDao;
+import dao.QuestionDao;
+import dao.StatisticDao;
+import dao.TestDao;
+import models.Question;
+import models.Statistic;
 import models.User;
+import models.data.AnswerData;
+import models.data.QuestionData;
 import models.data.TestData;
 import utils.ResponseData;
 
@@ -13,6 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @WebServlet(urlPatterns = {"/testStart"})
@@ -37,6 +47,38 @@ public class TestStartServlet extends HttpServlet {
 
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("auth");
+
+        TestDao testDao = new TestDao(session);
+        QuestionDao questionDao = new QuestionDao(session);
+        AnswerDao answerDao = new AnswerDao(session);
+        List<Integer> templateIds = answerDao.correctAnswerByTest(data.getId());
+        List<Integer> userIds = new ArrayList<>();
+
+        for (QuestionData questionData : data.getQuestions()) {
+            for (AnswerData answerData : questionData.getAnswers()) {
+                userIds.add(answerData.getId());
+            }
+        }
+        int count = 0;
+        for (Integer item : userIds) {
+            if (templateIds.contains(item)) {
+                count++;
+            }
+        }
+         int ball = (int) count / templateIds.size() * 100;
+
+        StatisticDao statisticDao = new StatisticDao(session);
+        Statistic statistic = new Statistic(
+                data.getId(),
+                user.getId(),
+                ball
+        );
+        statisticDao.add(statistic);
+
+        responseData.setLocation("/statistic.jsp");
+
+        resp.getWriter().print(responseData);
+
 
 
     }

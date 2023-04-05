@@ -22,7 +22,7 @@
 %>
 <html>
 <head>
-    <title>главная</title>
+    <title>Назначения для тестируемого</title>
     <%@include file="/WEB-INF/include/header.jsp" %>
 </head>
 <body>
@@ -35,7 +35,7 @@
     </button>
     <div class="navbar-nav">
         <div class="nav-item text-nowrap">
-            <a class="nav-link px-3" href="#">Выход</a>
+            <a class="nav-link px-3" href="/exit">Выход</a>
         </div>
     </div>
 </header>

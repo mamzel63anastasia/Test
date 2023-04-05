@@ -1,6 +1,9 @@
 package dao;
 
 import models.Answer;
+import models.data.AnswerData;
+import models.data.QuestionData;
+import models.data.TestData;
 
 
 import javax.servlet.http.HttpSession;
@@ -28,6 +31,29 @@ public class AnswerDao implements Dao {
         assert connector != null;
         this.connection = connector.getConnection();
 
+    }
+
+    public List<Integer> correctAnswerByTest(int id) {
+        List<Integer> ids = new ArrayList<>();
+
+        try {
+            String sql= "SELECT a.id\n" +
+                    "FROM answer a\n" +
+                    "         INNER JOIN question q on q.id = a.id_question\n" +
+                    "         INNER JOIN test t on t.id = q.id_test\n" +
+                    "WHERE a.correct = 1 AND t.id = ? ";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                ids.add(resultSet.getInt("id"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ids;
     }
 
     public List<Answer> all() {

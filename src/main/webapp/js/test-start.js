@@ -25,6 +25,8 @@ $(document).ready(function () {
 
         let data = JSON.stringify(testObj)
 
+        console.log(data)
+
         $.ajax({
             url: "/testStart",
             method: "post",

@@ -1,14 +1,22 @@
 <%@ page import="utils.Utils" %>
+<%@ page import="dao.StatisticDao" %>
+<%@ page import="models.Statistic" %>
+<%@ page import="dao.TestDao" %>
+<%@ page import="models.Test" %>
+<%@ page import="dao.Dao" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
     if (!Utils.checkAuthUser(session)) {
         response.sendRedirect("/login.jsp");
         return;
     }
+
+    StatisticDao statisticDao = new StatisticDao(session);
+    TestDao testDao = new TestDao(session);
 %>
 <html>
 <head>
-    <title>главная</title>
+    <title>Статистика</title>
     <%@include file="/WEB-INF/include/header.jsp" %>
 </head>
 <body>
@@ -29,7 +37,25 @@
     <div class="row">
         <%@include file="WEB-INF/include/menuuser.jsp" %>
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            Необходимо выбрать раздел
+            <table class="table table-striped">
+                <tr>
+                    <th>Название теста</th>
+                    <th>Дата прохождения теста</th>
+                    <th>Полученный балл</th>
+                </tr>
+                <%for (Statistic list : statisticDao.all()) {
+
+                %>
+                <tr>
+                    <%
+                        Test testView = testDao.itemByUser(list.getIdTest());
+                    %>
+                    <td><%=testView.getName()%></td>
+                    <td><%=list.getDate()%></td>
+                    <td><%=list.getBall()%></td>
+                </tr>
+                <%}%>
+            </table>
         </main>
     </div>
 </div>

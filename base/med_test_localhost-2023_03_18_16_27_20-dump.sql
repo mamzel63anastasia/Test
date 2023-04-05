@@ -158,4 +158,27 @@ CREATE TABLE IF NOT EXISTS public.get_test
 ALTER TABLE IF EXISTS public.answer
     OWNER to postgres;
 
+CREATE TABLE IF NOT EXISTS public.statistic
+(
+    id        SERIAL  NOT NULL,
+    data_time integer NOT NULL,
+    id_test   integer NOT NULL,
+    id_user   integer NOT NULL,
+    CONSTRAINT statistic_pkey PRIMARY KEY (id),
+    CONSTRAINT id_test FOREIGN KEY (id_test)
+        REFERENCES public.test (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+
+    CONSTRAINT id_user FOREIGN KEY (id_user)
+        REFERENCES public.users (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+    TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.statistic
+    OWNER to postgres;
+
 

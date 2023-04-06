@@ -59,13 +59,13 @@ public class TestStartServlet extends HttpServlet {
                 userIds.add(answerData.getId());
             }
         }
-        int count = 0;
+        double count = 0;
         for (Integer item : userIds) {
             if (templateIds.contains(item)) {
                 count++;
             }
         }
-         int ball = (int) count / templateIds.size() * 100;
+         int ball = (int) Math.round(count / templateIds.size() * 100);
 
         StatisticDao statisticDao = new StatisticDao(session);
         Statistic statistic = new Statistic(

@@ -161,9 +161,10 @@ ALTER TABLE IF EXISTS public.answer
 CREATE TABLE IF NOT EXISTS public.statistic
 (
     id        SERIAL  NOT NULL,
-    data_time integer NOT NULL,
+    data date NOT NULL,
     id_test   integer NOT NULL,
     id_user   integer NOT NULL,
+    ball integer NOT NULL,
     CONSTRAINT statistic_pkey PRIMARY KEY (id),
     CONSTRAINT id_test FOREIGN KEY (id_test)
         REFERENCES public.test (id) MATCH SIMPLE

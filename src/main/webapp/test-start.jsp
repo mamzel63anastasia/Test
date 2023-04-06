@@ -54,39 +54,33 @@
                     <b>Описание теста:</b><%=testData.getDescription()%>
                 </div>
                 <hr>
+
                 <div class="questions">
-                    <% if (testData != null) {
-                        for (QuestionData itemQuestion : testData.getQuestions()) {
-                    %>
-                    <div class="row question" question-id="<%=itemQuestion.getId()%>">
-                        <div class="row>">
-                            <div class="col-lg-12">
-                                <text class="form-control question_text"
-                                      placeholder="Вопрос"><%=itemQuestion.getQuestionText()%>
-                                </text>
-                            </div>
-                        </div>
-                        <div class="answers">
-                            <%
-                                for (AnswerData itemAnswer : itemQuestion.getAnswers()) {
-                            %>
-                            <div class="answer">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-text">
-                                        <input class="form-check-input mt-0 answer_check" type="checkbox"
-                                               title="Верный ответ"
-                                               answer-id="<%=itemAnswer.getId()%>">
-                                    </div>
-                                    <%=itemAnswer.getAnswerText()%>
+                    <% if (testData != null) { %>
+                        <% for (QuestionData itemQuestion : testData.getQuestions()) { %>
+                        <div class="row question" question-id="<%=itemQuestion.getId()%>">
+                            <div class="row>">
+                                <div class="col-lg-12">
+                                    <%=itemQuestion.getQuestionText()%>
                                 </div>
                             </div>
-                            <%}%>
+                            <div class="answers">
+                                <% for (AnswerData itemAnswer : itemQuestion.getAnswers()) { %>
+                                <div class="answer">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-text">
+                                            <input class="form-check-input mt-0 answer_check" type="checkbox"
+                                                   title="Верный ответ"
+                                                   answer-id="<%=itemAnswer.getId()%>">
+                                        </div>
+                                        <%=itemAnswer.getAnswerText()%>
+                                    </div>
+                                </div>
+                                <% } %>
+                            </div>
                         </div>
-                        <%
-                                }
-                            }
-                        %>
-                    </div>
+                        <% } %>
+                    <% } %>
                 </div>
                 <div class="card-footer">
                     <button class="btn btn-link save-result-test">Закончить тестирование</button>

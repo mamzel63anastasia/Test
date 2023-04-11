@@ -6,6 +6,7 @@
 <%@ page import="models.GetTest" %>
 <%@ page import="models.data.QuestionData" %>
 <%@ page import="models.data.AnswerData" %>
+<%@ page import="dao.StatisticDao" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
     if (!Utils.checkAuthUser(session)) {
@@ -21,6 +22,7 @@
 
     TestDao testDao = new TestDao(session);
     TestData testData = testDao.userTestBuilder(id);
+    StatisticDao statisticDao = new StatisticDao(session);
 
 %>
 <html>
@@ -46,6 +48,9 @@
     <div class="row">
         <%@include file="WEB-INF/include/menuuser.jsp" %>
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <% if  (statisticDao.checkUserCount(testData.getId()) > 3) {%>
+                Превышено количество попыток, больше трех.
+             <% } else { %>
             <div class="row test-start">
                 <input type="hidden" value="<%=id%>" id="test_id">
                 <div class="test-settings">
@@ -86,6 +91,7 @@
                     <button class="btn btn-link save-result-test">Закончить тестирование</button>
                 </div>
             </div>
+            <%}%>
         </main>
     </div>
 </div>

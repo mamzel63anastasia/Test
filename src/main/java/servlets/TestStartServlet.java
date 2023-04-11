@@ -60,12 +60,17 @@ public class TestStartServlet extends HttpServlet {
             }
         }
         double count = 0;
+        int ball = 0;
         for (Integer item : userIds) {
             if (templateIds.contains(item)) {
                 count++;
+                if (count < templateIds.size()) {
+                     ball = (int) Math.round(count / templateIds.size() * 100);
+                } else {
+                     ball = (int) Math.round(count / userIds.size() * 100);
+                }
             }
         }
-         int ball = (int) Math.round(count / templateIds.size() * 100);
 
         StatisticDao statisticDao = new StatisticDao(session);
         Statistic statistic = new Statistic(
@@ -78,7 +83,6 @@ public class TestStartServlet extends HttpServlet {
         responseData.setLocation("/statistic.jsp");
 
         resp.getWriter().print(responseData);
-
 
 
     }

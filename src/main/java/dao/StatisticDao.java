@@ -31,7 +31,7 @@ public class StatisticDao implements Dao {
 
     public List<Statistic> all() {
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM statistic WHERE id_user = ? ");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM statistic WHERE id_user = ? ORDER BY data, id DESC");
             statement.setInt(1, user.getId());
             return buildStatement(statement);
         } catch (SQLException e) {
@@ -40,7 +40,25 @@ public class StatisticDao implements Dao {
         return Collections.emptyList();
     }
 
-    public List<Statistic> allByAdmin(){
+    public int checkUserCount(int idTest) {
+        try {
+            String sql = "SELECT count(id) cnt FROM statistic WHERE id_user = ? AND id_test = ? AND data = now()::date";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, user.getId());
+            statement.setInt(2, idTest);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next())
+                return resultSet.getInt("cnt");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    public List<Statistic> allByAdmin() {
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT s.* FROM statistic s " +
                     "INNER JOIN test t on s.id_test = t.id " +

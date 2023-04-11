@@ -62,4 +62,5 @@ public class Statistic {
     public void setDate(Date date) {
         this.date = date;
     }
+
 }
